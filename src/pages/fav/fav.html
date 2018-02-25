@@ -1,3 +1,7 @@
 <ion-content>
-    
+        <ion-slides pager>
+            <ion-slide *ngFor="let f of fav">
+                <place-view [id]="f"></place-view>
+            </ion-slide>
+        </ion-slides>
 </ion-content>

@@ -1,10 +1,9 @@
-
 <ion-header>
   <ion-navbar>
     <ion-title>Select location</ion-title>
   </ion-navbar>
 </ion-header>
-  
+
 <ion-content padding>
   <agm-map (mapClick)="handleClick($event)" *ngIf="geoLoaded" [latitude]="lat" [longitude]="lng">
     <agm-marker *ngIf="hasMarker" [latitude]="markerLat" [longitude]="markerLng"></agm-marker>
@@ -14,31 +13,31 @@
     <ion-grid>
       <ion-row>
         <ion-col col-6>
-            <ion-card class="info-card"  (click)="AcceptDefault()">
-                <ion-card-header class="info-card__header">
-                  Your location:
-                </ion-card-header>
-          
-                <ion-card-content>
-                  {{defaultName}}
-                </ion-card-content>
-              </ion-card>
+          <ion-card class="info-card" (click)="AcceptDefault()">
+            <ion-card-header class="info-card__header">
+              Your location:
+            </ion-card-header>
+
+            <ion-card-content>
+              {{defaultName}}
+            </ion-card-content>
+          </ion-card>
         </ion-col>
         <ion-col col-6>
-            <ion-card class="info-card" (click)="AcceptSelected()" *ngIf="selectedPlaceInfo">
-              <ion-card-header class="info-card__header">
-                Selected place:
-              </ion-card-header>
-        
-              <ion-card-content>
-                {{getSelectPlaceName()}}
-              </ion-card-content>
-            </ion-card>
-            <ion-card class="info-card" *ngIf="!selectedPlaceInfo">        
-              <ion-card-content>
-                Select location on the map or use your current location
-              </ion-card-content>
-            </ion-card>
+          <ion-card class="info-card" (click)="AcceptSelected()" *ngIf="selectedPlaceInfo">
+            <ion-card-header class="info-card__header">
+              Selected place:
+            </ion-card-header>
+
+            <ion-card-content>
+              {{getSelectPlaceName()}}
+            </ion-card-content>
+          </ion-card>
+          <ion-card class="info-card" *ngIf="!selectedPlaceInfo">
+            <ion-card-content>
+              Select location on the map or use your current location
+            </ion-card-content>
+          </ion-card>
         </ion-col>
       </ion-row>
     </ion-grid>

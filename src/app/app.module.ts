@@ -11,12 +11,15 @@ import { HttpModule, Http } from '@angular/http';
 import { PlaceInfoPage } from '../pages/place-info/place-info';
 import { ChartModule } from 'angular-highcharts';
 import { FavPage } from '../pages/fav/fav';
+import { FavService } from '../services/fav.service';
+import { PlaceViewComponent } from '../components/place-view.component';
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     PlaceInfoPage,
-    FavPage
+    FavPage,
+    PlaceViewComponent
   ],
   imports: [
     BrowserModule,
@@ -32,12 +35,14 @@ import { FavPage } from '../pages/fav/fav';
     MyApp,
     HomePage,
     FavPage,
-    PlaceInfoPage
+    PlaceInfoPage,
+    PlaceViewComponent
   ],
   providers: [
     StatusBar,
     GeoService,
     SplashScreen,
+    FavService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

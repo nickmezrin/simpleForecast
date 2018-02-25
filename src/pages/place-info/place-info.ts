@@ -1,19 +1,23 @@
 import { Component, Input } from "@angular/core";
 import { Place } from "../../models/place";
+import { Coordinates } from './../../models/coordinates';
 import { NavController } from "ionic-angular";
 import { Chart } from 'angular-highcharts';
 import { GeoService } from "../../services/geo.service";
 import { Forecast } from "../../models/forecast";
+import { FavService } from "../../services/fav.service";
 
 @Component({
-    selector: 'place-info',
+  selector: 'place-info',
   templateUrl: './place-info.html'
 })
 export class PlaceInfoPage {
+  isFav: boolean;
   chart: Chart;
   info: Place;
 
-  constructor(public navCtrl: NavController, private geoService: GeoService){
+  constructor(public navCtrl: NavController, private geoService: GeoService,
+    private favService: FavService) {
     this.chart = new Chart({
       chart: {
         type: 'line'
@@ -27,12 +31,17 @@ export class PlaceInfoPage {
       }]
     });
   }
-  
+
   ngOnInit() {
+    let fav = JSON.parse(localStorage.getItem('fav'));
     this.info = this.navCtrl.getActive().getNavParams().data
     console.info(this.info)
     this.geoService.get5DayForecast(this.info.id)
       .do(x => this.updateInfo(x))
+      .subscribe();
+    this.favService.fav
+      .map(x => x.some(c => c === this.info.id))
+      .do(x => this.isFav = x)
       .subscribe();
   }
 
@@ -65,7 +74,7 @@ export class PlaceInfoPage {
     f.list.forEach(x => {
       temp.push(x);
       if (temp.length === 8) {
-        let mdVal = temp.map(x => x.main.temp -273).reduce((a,x) => a + x) / 8;
+        let mdVal = temp.map(x => x.main.temp - 273).reduce((a, x) => a + x) / 8;
         values.push(Math.round(mdVal));
         temp = [];
       }
@@ -93,5 +102,21 @@ export class PlaceInfoPage {
         data: values
       }]
     });
+  }
+
+
+  AddToFav() {
+    this.favService.AddToFav(this.info.id);
+  }
+
+  RemoveFromFav() {
+    this.favService.RemoveFromFav(this.info.id);
+  }
+
+  private get coords(): Coordinates {
+    return {
+      lat: this.info.coord.lat,
+        lng: this.info.coord.lon,
+    }
   }
 }

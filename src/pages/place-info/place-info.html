@@ -3,7 +3,7 @@
         <ion-title icon>{{name}} </ion-title> 
     </ion-navbar>
 </ion-header>
-<ion-content padding>
+<ion-content >
         <ion-list>
                 <ion-grid>
                         <ion-row>
@@ -27,4 +27,10 @@
         <ion-card>
             <div [chart]="chart"></div>
         </ion-card>
-</ion-content>
+        <button *ngIf="isFav" ion-button outline full (click)="RemoveFromFav()">
+            Remove from fav
+        </button>
+        <button *ngIf="!isFav" ion-button full (click)="AddToFav()">
+            Add to Fav
+        </button>
+    </ion-content>

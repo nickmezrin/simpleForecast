@@ -10,6 +10,7 @@ import { Place } from "../models/place";
 export class GeoService {
     public CurrentGeo = new BehaviorSubject<Coordinates>(new Coordinates);
     private readonly cityInfoEndpoint = `http://api.openweathermap.org/data/2.5/weather?`
+    private readonly cityInfoByIdEndpoint = `http://api.openweathermap.org/data/2.5/weather?`
     private readonly forecastEndpoint = `http://api.openweathermap.org/data/2.5/forecast?`
     private readonly requestTail = `&APPID=9b2a30532816223c47d810b295ef4579`
     constructor(private httpClient: Http) {}
@@ -25,6 +26,12 @@ export class GeoService {
 
     public getPlaceInfo(c: Coordinates): Observable<Place> {
         let url = `${this.cityInfoEndpoint}lat=${c.lat}&lon=${c.lng}${this.requestTail}`;
+        return this.httpClient.get(url).map(x => x.json());
+    }
+
+    public getPlaceInfoById(id: number): Observable<Place> {
+        let url = `${this.cityInfoEndpoint}id=${id}${this.requestTail}`;
+        console.info(url)
         return this.httpClient.get(url).map(x => x.json());
     }
 
