@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title icon>{{name}} </ion-title> 
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+        <ion-list>
+                <ion-grid>
+                        <ion-row>
+                            <ion-col col-6>
+                              Common: 
+                            </ion-col>
+                            <ion-col col-6>
+                                {{main}}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col col-6>
+                                Temperature:
+                            </ion-col>
+                            <ion-col col-6>
+                                {{temperature}}
+                            </ion-col>
+                        </ion-row>
+                </ion-grid>
+        </ion-list>
+        <ion-card>
+            <div [chart]="chart"></div>
+        </ion-card>
+</ion-content>

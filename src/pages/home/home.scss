@@ -1,0 +1,18 @@
+page-home {
+    agm-map {
+        height: 70%;
+        width: 100%;
+    }
+    .info-card {
+        min-height: 100%;
+        max-height: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        &:active {
+            background-color: #ddd;
+        }
+        &__header {
+            font-size: 18px;
+        }
+    }
+}
